@@ -1,3 +1,11 @@
+package com.entity;
+
+import org.hibernate.annotations.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import java.io.Serializable;
+
 @Entity
 public final class Client implements Serializable {
     private Integer id;
@@ -6,7 +14,7 @@ public final class Client implements Serializable {
     private String address;
     private String email;
     private String phone;
-    //private CourseSession courseSession;
+    private CourseSession courseSession;
 
     @Id
     public Integer getId() { return this.id; }
@@ -31,4 +39,7 @@ public final class Client implements Serializable {
     @PrimaryKeyJoinColumn
     public CourseSession getCourseSession() { return courseSession; }
 
+    public void setCourseSession(CourseSession courseSession) {
+        this.courseSession = courseSession;
+    }
 }

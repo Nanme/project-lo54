@@ -1,4 +1,4 @@
-package main;
+package com.main;
 
 /**
  * Created by Daniel Paredes on 7/4/2017.

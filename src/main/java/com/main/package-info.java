@@ -1,4 +1,4 @@
 /**
  * Created by renaud on 07/04/2017.
  */
-package main;
+package com.main;
