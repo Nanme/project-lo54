@@ -1,7 +1,7 @@
 package com.entity;
 
-import org.hibernate.annotations.Entity;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -16,4 +16,12 @@ public final class Location implements Serializable {
 
     public String getCity() { return this.city; }
     public void setCity(String city) { this.city = city; }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                '}';
+    }
 }

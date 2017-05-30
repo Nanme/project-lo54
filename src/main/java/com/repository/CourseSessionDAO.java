@@ -1,24 +1,12 @@
-package com.repository;
-
-import com.entity.Location;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
-import java.util.List;
-
-/**
- * Created by renaud on 12/05/2017.
- */
-public final class LocationDAO implements IDAO<Location>{
+public class CourseSessionDAO implements IDAO<CourseSession> {
     private static Session session = HibernateUtil.getSessionFactory().openSession();
 
-    public List<Location> getAll() {
-        List<Location> list = null;
+    public List<CourseSession> getAll() {
+        List<CourseSession> list = null;
         try {
             session.beginTransaction();
 
-            Query query = session.createQuery("from Location");
+            Query query = session.createQuery("from CourseSession");
             list = query.list();
 
             session.getTransaction().commit();
@@ -40,17 +28,16 @@ public final class LocationDAO implements IDAO<Location>{
                     e3.printStackTrace();
                 }
             }
-
             return list;
         }
     }
 
-    public Location getFromId(Integer id) {
-        Location loc = null;
+    public CourseSession getFromId(Integer id) {
+        CourseSession cs = null;
         try {
             session.beginTransaction();
 
-            loc = (Location) session.get(Location.class, id);
+            cs = (CourseSession) session.get(CourseSession.class, id);
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -70,12 +57,12 @@ public final class LocationDAO implements IDAO<Location>{
                     e3.printStackTrace();
                 }
             }
-            return loc;
+            return cs;
         }
     }
 
     //TODO Test it
-    public void add(Location toAdd) {
+    public void add(CourseSession toAdd) {
         try {
             session.beginTransaction();
 
@@ -103,7 +90,7 @@ public final class LocationDAO implements IDAO<Location>{
     }
 
     //TODO Test it
-    public void delete(Location toDelete) {
+    public void delete(CourseSession toDelete) {
         try {
             session.beginTransaction();
 

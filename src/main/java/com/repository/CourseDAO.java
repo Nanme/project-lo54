@@ -10,9 +10,10 @@ import java.util.List;
 /**
  * Created by renaud on 12/05/2017.
  */
-public class CourseDAO implements IDAO<Course>{
+public final class CourseDAO implements IDAO<Course>{
     private static Session session = HibernateUtil.getSessionFactory().openSession();
 
+    //TODO Test it
     public List<Course> getAll() {
         List<Course> list = null;
         try {
@@ -45,12 +46,13 @@ public class CourseDAO implements IDAO<Course>{
         }
     }
 
+    //TODO Test it
     public Course getFromId(Integer id) {
-        Course loc = null;
+        Course cou = null;
         try {
             session.beginTransaction();
 
-            loc = session.get(Course.class, id);
+            cou = (Course) session.get(Course.class, id);
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -70,10 +72,11 @@ public class CourseDAO implements IDAO<Course>{
                     e3.printStackTrace();
                 }
             }
-            return loc;
+            return cou;
         }
     }
 
+    //TODO Test it
     public void add(Course toAdd) {
         try {
             session.beginTransaction();
@@ -101,6 +104,7 @@ public class CourseDAO implements IDAO<Course>{
         }
     }
 
+    //TODO Test it
     public void delete(Course toDelete) {
         try {
             session.beginTransaction();

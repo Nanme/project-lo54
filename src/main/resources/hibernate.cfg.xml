@@ -12,6 +12,7 @@
         <property name="connection.username">root</property>
         <property name="connection.password">admin</property>
         <property name="connection.pool_size">1</property>
+
         <property name="dialect">
             org.hibernate.dialect.MySQLDialect
         </property>
@@ -19,7 +20,9 @@
         <property name="cache.provider_class">
             org.hibernate.cache.NoCacheProvider
         </property>
-        <property name="hbm2ddl.auto">validate</property>
+        <!--<property name="hbm2ddl.auto">validate</property>-->
         <mapping package="com.entity" />
+        <mapping class="com.entity.Course" />
+        <mapping class="com.entity.Location" />
     </session-factory>
 </hibernate-configuration>

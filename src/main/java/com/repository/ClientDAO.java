@@ -1,24 +1,12 @@
-package com.repository;
-
-import com.entity.Location;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
-import java.util.List;
-
-/**
- * Created by renaud on 12/05/2017.
- */
-public final class LocationDAO implements IDAO<Location>{
+public class ClientDAO implements IDAO<Client> {
     private static Session session = HibernateUtil.getSessionFactory().openSession();
 
-    public List<Location> getAll() {
-        List<Location> list = null;
+    public List<Client> getAll() {
+        List<Client> list = null;
         try {
             session.beginTransaction();
 
-            Query query = session.createQuery("from Location");
+            Query query = session.createQuery("from Client");
             list = query.list();
 
             session.getTransaction().commit();
@@ -40,17 +28,16 @@ public final class LocationDAO implements IDAO<Location>{
                     e3.printStackTrace();
                 }
             }
-
             return list;
         }
     }
 
-    public Location getFromId(Integer id) {
-        Location loc = null;
+    public Client getFromId(Integer id) {
+        Client cli = null;
         try {
             session.beginTransaction();
 
-            loc = (Location) session.get(Location.class, id);
+            cli = (Client) session.get(Client.class, id);
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -70,12 +57,12 @@ public final class LocationDAO implements IDAO<Location>{
                     e3.printStackTrace();
                 }
             }
-            return loc;
+            return cli;
         }
     }
 
     //TODO Test it
-    public void add(Location toAdd) {
+    public void add(Client toAdd) {
         try {
             session.beginTransaction();
 
@@ -103,7 +90,7 @@ public final class LocationDAO implements IDAO<Location>{
     }
 
     //TODO Test it
-    public void delete(Location toDelete) {
+    public void delete(Client toDelete) {
         try {
             session.beginTransaction();
 

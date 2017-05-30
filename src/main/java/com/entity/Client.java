@@ -1,10 +1,13 @@
 package com.entity;
 
 import org.hibernate.annotations.Entity;
+
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.CascadeType;
 
 @Entity
 public final class Client implements Serializable {
@@ -16,7 +19,10 @@ public final class Client implements Serializable {
     private String phone;
     private CourseSession courseSession;
 
+    //TODO Builder
+
     @Id
+    @GeneratedValue
     public Integer getId() { return this.id; }
     public void setId(Integer id) {this.id = id; }
 
@@ -35,11 +41,23 @@ public final class Client implements Serializable {
     public String getPhone() { return this.phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    @OneToOne
+    @ManyToOne{cascade = CascadeType.ALL}
     @PrimaryKeyJoinColumn
     public CourseSession getCourseSession() { return courseSession; }
-
     public void setCourseSession(CourseSession courseSession) {
         this.courseSession = courseSession;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", courseSession=" + courseSession +
+                '}';
     }
 }
