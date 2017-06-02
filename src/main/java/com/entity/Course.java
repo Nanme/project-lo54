@@ -10,7 +10,13 @@ public final class Course implements Serializable {
     private String code;
     private String title;
 
-    //TODO Builder
+    public Course() {
+    }
+
+    public Course(String code, String title) {
+        this.code = code;
+        this.title = title;
+    }
 
     @Id
     public String getCode() { return this.code; }
@@ -25,5 +31,23 @@ public final class Course implements Serializable {
                 "code='" + code + '\'' +
                 ", title='" + title + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Course course = (Course) o;
+
+        if (code != null ? !code.equals(course.code) : course.code != null) return false;
+        return title != null ? title.equals(course.title) : course.title == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = code != null ? code.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        return result;
     }
 }

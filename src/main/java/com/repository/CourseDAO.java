@@ -10,11 +10,10 @@ import java.util.List;
 /**
  * Created by renaud on 12/05/2017.
  */
-public final class CourseDAO implements IDAO<Course>{
-    private static Session session = HibernateUtil.getSessionFactory().openSession();
+public final class CourseDAO extends AbstractDAO<Course> implements IDAO<Course>{
 
-    //TODO Test it
     public List<Course> getAll() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         List<Course> list = null;
         try {
             session.beginTransaction();
@@ -46,13 +45,13 @@ public final class CourseDAO implements IDAO<Course>{
         }
     }
 
-    //TODO Test it
-    public Course getFromId(Integer id) {
+    public Course getFromId(Object id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Course cou = null;
         try {
             session.beginTransaction();
 
-            cou = (Course) session.get(Course.class, id);
+            cou = (Course) session.get(Course.class, (String) id);
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -76,59 +75,59 @@ public final class CourseDAO implements IDAO<Course>{
         }
     }
 
-    //TODO Test it
-    public void add(Course toAdd) {
-        try {
-            session.beginTransaction();
-
-            session.merge(toAdd);
-
-            session.getTransaction().commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (session.getTransaction() != null) {
-                try {
-                    session.getTransaction().rollback();
-                } catch (HibernateException e2) {
-                    e2.printStackTrace();
-                }
-            }
-        } finally {
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException e3) {
-                    e3.printStackTrace();
-                }
-            }
-        }
-    }
-
-    //TODO Test it
-    public void delete(Course toDelete) {
-        try {
-            session.beginTransaction();
-
-            session.delete(toDelete);
-
-            session.getTransaction().commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (session.getTransaction() != null) {
-                try {
-                    session.getTransaction().rollback();
-                } catch (HibernateException e2) {
-                    e2.printStackTrace();
-                }
-            }
-        } finally {
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException e3) {
-                    e3.printStackTrace();
-                }
-            }
-        }
-    }
+//    public void add(Course toAdd) {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        try {
+//            session.beginTransaction();
+//
+//            session.merge(toAdd);
+//
+//            session.getTransaction().commit();
+//        } catch (HibernateException e) {
+//            e.printStackTrace();
+//            if (session.getTransaction() != null) {
+//                try {
+//                    session.getTransaction().rollback();
+//                } catch (HibernateException e2) {
+//                    e2.printStackTrace();
+//                }
+//            }
+//        } finally {
+//            if (session != null) {
+//                try {
+//                    session.close();
+//                } catch (HibernateException e3) {
+//                    e3.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+//
+//    public void delete(Course toDelete) {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        try {
+//            session.beginTransaction();
+//
+//            session.delete(toDelete);
+//
+//            session.getTransaction().commit();
+//        } catch (HibernateException e) {
+//            e.printStackTrace();
+//            if (session.getTransaction() != null) {
+//                try {
+//                    session.getTransaction().rollback();
+//                } catch (HibernateException e2) {
+//                    e2.printStackTrace();
+//                }
+//            }
+//        } finally {
+//            if (session != null) {
+//                try {
+//                    session.close();
+//                } catch (HibernateException e3) {
+//                    e3.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 }

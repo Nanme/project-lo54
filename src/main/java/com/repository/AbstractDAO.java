@@ -1,53 +1,19 @@
 package com.repository;
 
-import com.entity.CourseSession;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 
-import java.util.List;
+/**
+ * Created by renaud on 02/06/2017.
+ */
+public abstract class AbstractDAO<T> implements IDAO<T> {
 
-public class CourseSessionDAO extends AbstractDAO<CourseSession> implements IDAO<CourseSession> {
-
-    public List<CourseSession> getAll() {
+    public void add(T toAdd) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List<CourseSession> list = null;
         try {
             session.beginTransaction();
 
-            Query query = session.createQuery("from CourseSession");
-            list = query.list();
-
-            session.getTransaction().commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (session.getTransaction() != null) {
-                try {
-                    session.getTransaction().rollback();
-
-                } catch (HibernateException e2) {
-                    e2.printStackTrace();
-                }
-            }
-        } finally {
-            if (session != null) {
-                try {
-                    session.close();
-                } catch ( HibernateException e3) {
-                    e3.printStackTrace();
-                }
-            }
-            return list;
-        }
-    }
-
-    public CourseSession getFromId(Object id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        CourseSession cs = null;
-        try {
-            session.beginTransaction();
-
-            cs = (CourseSession) session.get(CourseSession.class, (Integer) id);
+            session.merge(toAdd);
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -67,7 +33,34 @@ public class CourseSessionDAO extends AbstractDAO<CourseSession> implements IDAO
                     e3.printStackTrace();
                 }
             }
-            return cs;
+        }
+    }
+
+    public void delete(T toDelete) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            session.delete(toDelete);
+
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (session.getTransaction() != null) {
+                try {
+                    session.getTransaction().rollback();
+                } catch (HibernateException e2) {
+                    e2.printStackTrace();
+                }
+            }
+        } finally {
+            if (session != null) {
+                try {
+                    session.close();
+                } catch (HibernateException e3) {
+                    e3.printStackTrace();
+                }
+            }
         }
     }
 }

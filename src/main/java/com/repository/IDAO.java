@@ -8,7 +8,7 @@ import java.util.List;
 public interface IDAO<T> {
 
     List<T> getAll();
-    T getFromId(Integer id);
+    T getFromId(Object id);
     void add(T toAdd);
     void delete(T toDelete);
 }
