@@ -1,3 +1,16 @@
+package com.service;
+
+import com.entity.Course;
+import com.entity.CourseSession;
+import com.entity.Location;
+import com.repository.ClientDAO;
+import com.repository.CourseDAO;
+import com.repository.CourseSessionDAO;
+import com.repository.LocationDAO;
+
+import java.util.Date;
+import java.util.List;
+
 public final class CRUDService {
     private final CourseDAO courseDAO = new CourseDAO();
     private final ClientDAO clientDAO = new ClientDAO();
@@ -25,7 +38,7 @@ public final class CRUDService {
         //TODO Write function
     }
 
-    public void deleteCourseSession(Date startDate, Date, endDate, Course course,
+    public void deleteCourseSession(Date startDate, Date endDate, Course course,
                                Location location) {
         //TODO Write function
     }
@@ -35,6 +48,6 @@ public final class CRUDService {
     }
 
     public List<Location> getLocations() {
-        //TODO Write function
+        return locationDAO.getAll();
     }
 }
